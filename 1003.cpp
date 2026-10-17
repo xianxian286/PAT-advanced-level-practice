@@ -1,12 +1,12 @@
-//这题没有AC，2/6测试样例WA
-//dp[i]表示从起始点到Ci的最短距离
-//team[i]表示能集结的最大队伍数量
-//用邻接表存每座城市的邻居城市
-//边界条件，起点C1的距离为0，dp[C1] = 0
+//已AC
 #include<iostream>
 #include<vector>
 using namespace std;
 int main(){
+//dp[i]表示从起始点到Ci的最短距离
+//team[i]表示能集结的最大队伍数量
+//用邻接表存每座城市的邻居城市
+//边界条件，起点C1的距离为0，dp[C1] = 0
     vector<pair<int, int>> roads[1001];
     int rescue[1001], dp[1001], ways[1001];
     int N, M, C1, C2;
@@ -55,7 +55,11 @@ int main(){
                 teams[nextCity] = teams[city] + rescue[nextCity];
             }else if(dp[city] + distance == dp[nextCity]){
                 ways[nextCity] += ways[city];
-                teams[nextCity] = max(teams[city], teams[city] + rescue[nextCity]);
+
+                int candidateTeams = teams[city] + rescue[nextCity];
+                if (candidateTeams > teams[nextCity]) {
+                    teams[nextCity] = candidateTeams;
+                }
             }
         }
     }
